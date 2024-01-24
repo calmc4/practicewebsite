@@ -1,0 +1,133 @@
+Algorithm
+Binary
+Compiler
+Encryption
+Firewall
+Hash
+Internet
+Java
+Kernel
+Lambda
+Middleware
+Node
+Cal
+Object-oriented
+Protocol
+Cyber
+Queue
+Recursion
+Syntax
+Turing
+Virtualization
+AJAX
+Blockchain
+Database
+Ethernet
+Git
+HTML
+Python
+JSON
+Kubernetes
+Loop
+Javascript
+Namespace
+HTML
+OAuth
+Firewall
+Encryption
+Authentication
+Intrusion Detection
+Malware
+VPN
+Virtual Private Network
+Phishing
+Biometrics
+Patching
+Cyberattack
+Zero-Day
+Ransomware
+Social Engineering
+Vulnerability
+Endpoint Security
+Two-Factor Authentication
+Penetration Testing
+Incident Response
+Cyber Hygiene
+DNS Security
+Security Audit
+Threat Intelligence
+Access Control
+Cryptography
+Security Policy
+Java
+Python
+RESTful
+SQL
+Shell
+C++
+C
+TypeScript
+API
+Cloud
+Docker
+Framework
+IDE
+JVM
+Microservices
+NoSQL
+ORM
+Protocol
+Quantum
+Serverless
+Bash
+Thread
+Unicode
+Assembly
+Buffer
+Cryptography
+Dependency
+Event-driven
+Frontend
+GraphQL
+HTTP
+Internet of Things
+Load balancing
+Maven
+Nginx
+Opcode
+Parser
+Quantum computing
+Ransomware
+Semaphore
+TCP/IP
+URL
+VPN
+Cross-Site Scripting
+Yarn
+Agile
+Big-O notation
+Caching
+Domain Name System
+Encryption
+Firewall
+Graphical User Interface
+HTTPS
+Infrastructure as a Service
+JIRA
+Latency
+Middleware
+Network Address Translation
+Overhead
+Penetration testing
+Redundant Array of Independent Disks
+Semaphore
+Threat modeling
+Unified Modeling Language
+Version control
+YAML
+Zero-day
+Atomicity
+Blockchain
+Deadlock
+Emulator
+Floppy disk

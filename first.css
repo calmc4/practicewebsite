@@ -1,0 +1,172 @@
+body {
+    font-family: Arial, sans-serif;
+    color: white;
+	background-color: black;
+	min-height: 100vh;
+}
+
+header {
+	padding-left: 250px;
+	padding-top: 250px;
+	align-items: center;
+	z-index: 3;
+	display: flex;
+}
+
+.content {
+	overflow: hidden;
+    position: relative;
+    z-index: 3;
+    padding: 200px;
+}
+
+.info {
+	display: inline;
+	overflow: hidden;
+	text-align: center;
+	padding-top: 50px;
+	position: flex;
+	z-index: 6;
+	color: red;
+}
+
+
+* {
+	box-sizing: border-box;
+	font-family: monospace;
+}
+
+.svg-class {
+	position: absolute;
+	z-index: 2;
+}
+
+.image-class {
+	position: absolute;
+	z-index: 1;
+}
+
+.text-class {
+	position: aboslute;
+	z-index: 3
+}
+.aboutmeblock {
+	display: hidden;
+	padding-bottom: 400px;
+}
+
+.aboutmeblock2 {
+	display: hidden;
+	padding-bottom: 400px;
+}
+
+.aboutmesvg {
+	display: hidden;
+	z-index: 3;
+	display: inline;
+}
+
+.aboutmeblockbackground {
+	display: hidden;
+	z-index: 2;
+	display: inline;
+}
+
+/*
+
+
+THIS IS ALL SCROLL STUFF - TRY REMOVE SOME
+
+
+*/
+
+.background-text {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 0;
+	width: 100vw;
+	height: 100vh;
+	color: grey;
+	white-space: nowrap;
+	overflow: hidden;
+	animation: scrollingtext 85s linear infinite;
+}
+
+
+.scrolling-text-container {
+	z-index: 0;
+	width: 150vh; /* Adjust the width as needed */
+	height: 25vw; /* Adjust the height as needed */
+	overflow: hidden;
+}
+
+.line-paragraph {
+	overflow: hidden;
+	display: block;
+	z-index: 0;
+	margin-bottom: 20px;
+	padding-right: 50px;
+	margin-right: 50px; /* Adjust the margin to set the gap between words */
+}
+
+
+@keyframes scrollingtext {
+	0% {
+		transform: translateX(100vh);
+	}
+	100% {
+		transform: translateX(-100%);
+	}
+}
+
+.color-word {
+	overflow: hidden;
+	z-index: 1;
+    color: green; /* Set the color for specific words */
+}
+
+/*
+
+
+THIS IS ALL CIRCLE STUFF - TRY REMOVE SOME
+
+
+*/
+
+.circle {
+	z-index: 2;
+	transform-style: preserve-3d;
+	animation: animate 8s linear infinite;
+}
+
+@keyframes animate 
+{
+	0%
+	{
+		transform: perspective(1000px) rotateY(360deg) rotatex(15deg);
+	}
+	100%
+	{
+		transform: perspective(1000px) rotateY(0deg) rotateX(15deg);
+	}
+}
+
+.circle .word {
+	z-index: 2;
+    position: absolute;
+    transform-style: preserve-3d;
+}
+
+.circle .char {
+		z-index: 2;
+		position: absolute;
+		background: #fff;
+		color: #35146f;
+		font-size: 5em;
+		padding: 15px 15px;
+		border-top: 10px solid #35146f;
+		border-bottom: 10px solid #35146f;
+		transform: rotateY(calc(var(--char-index) * 12deg))
+		translateZ(250px);
+}
