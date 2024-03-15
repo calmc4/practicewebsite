@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Cal Mclean</title>
+    <link rel="stylesheet" href="first.css">
+</head>
+<header>
+	<div class = "circle" data-splitting>
+		cal mclean is super cool and funny
+	</div>
+</header>
+<body>
+	<div class = "info">
+		<svg width="400" height="400">
+		  <rect width="400" height="400" fill="blue" />
+		  <text x="400" y="120" font-family="Arial" font-size="14" fill="white">
+		    <tspan x="160" dy="2em">Cal Mclean</tspan>
+		    <tspan x="160" dy="2em">About Me</tspan>
+		    <tspan x="160" dy="2em">Modules</tspan>
+		    <tspan x="160" dy="2em">Projects</tspan>
+		  </text>
+		</svg>
+	    <div class="content">
+	    </div>
+	</div>
+
+    <div class="background-text" id="text-content"></div>
+
+	<div class = "aboutmeblock" style = "display: none;">
+		<image src="starnight.gif" height= "42.5%" class="image-class" />
+		<h3 class = "text-class"> hello </h3>
+		<svg class = "svg-class" width = "100%" height = "400"> 
+		  	<rect x="350" y="0" width = "100%" height= "100%" fill="#73737d" />
+		  	<polygon points="200,250 400,-100 0,-100" fill="#73737d" transform="rotate(90 125 125)"/>
+		  	<text x="500" y="50" font-family="Helvetica" font-weight = "bold" font-size="60" fill="red"> About me </text>
+		  	<text x="500" y="90" font-family="Arial" font-size="16" fill="white">Hello, welcome to my website! </text>
+		  	<text x="500" y="120" font-family="Arial" font-size="16" fill="white" > This website is for personal use and showcasing projects which I am working on. I am currently </text>
+		  	<text x="500" y="150" font-family="Arial" font-size="16" fill="white"> a 19 year old university student with a keen interest in all things computer realted </text>
+		  	<text x="500" y="180" font-family="Arial" font-size="16" fill="white"> this website was made by myself to refresh my memory of css, java and html </text>
+		</svg>
+	</div>
+
+		<div class = "aboutmeblockbackground">
+			<svg width = "100%" height = "400"> 
+		  	</svg>
+		</div>
+
+	<div class = "aboutmeblock2" style = "display: none;">
+		<image src="starnight.gif" height= "42.5%" class="image-class" />
+		<svg class = "svg-class" width = "100%" height = "400"> 
+		  	<rect x="350" y="0" width = "100%" height= "100%" fill="#73737d" />
+		  	<polygon points="200,250 400,-100 0,-100" fill="#73737d" transform="rotate(90 125 125)"/>
+		  	<text x="500" y="50" font-family="Helvetica" font-weight = "bold" font-size="60" fill="red"> Modules </text>
+		  	<text x="500" y="90" font-family="Arial" font-size="16" fill="white">Hello, this area covers all the modules which I have completed so far at university </text>
+		  	<text x="500" y="120" font-family="Arial" font-size="16" fill="white" > This website is for personal use and showcasing projects which I am working on. I am currently </text>
+		  	<text x="500" y="150" font-family="Arial" font-size="16" fill="white"> a 19 year old university student with a keen interest in all things computer realted </text>
+		  	<text x="500" y="180" font-family="Arial" font-size="16" fill="white"> this website was made by myself to refresh my memory of css, java and html </text>
+		</svg>
+	</div>
+
+		<div class = "aboutmeblockbackground2">
+			<svg width = "100%" height = "400"> 
+		  	</svg>
+		</div>
+	</div>
+
+	<div class = "aboutmeblock3" style = "display: none;">
+		<image src="starnight.gif" height= "42.5%" class="image-class" />
+		<svg class = "svg-class" width = "100%" height = "400"> 
+		  	<rect x="350" y="0" width = "100%" height= "100%" fill="#73737d" />
+		  	<polygon points="200,250 400,-100 0,-100" fill="#73737d" transform="rotate(90 125 125)"/>
+		  	<text x="500" y="50" font-family="Helvetica" font-weight = "bold" font-size="60" fill="red"> Projects </text>
+		  	<text x="500" y="90" font-family="Arial" font-size="16" fill="white">Hello, these are all the projects I have currently made. </text>
+		  	<text x="500" y="120" font-family="Arial" font-size="16" fill="white" > Some can not be shared due to regulations and such but will still be talked about </text>
+		</svg>
+	</div>
+
+		<div class = "aboutmeblockbackground3">
+			<svg width = "100%" height = "400"> 
+		  	</svg>
+		</div>
+	</div>
+
+
+    <script src="script.js"></script>
+	<script src="splitting.js"></script>
+	<script> Splitting(); </script>
+          <script>
+        // Fetch text from a file (replace 'your_text_file.txt' with the actual path)
+        fetch('actual.txt')
+            .then(response => response.text())
+            .then(content => {
+                const words = content.split(/\s+/).filter(word => word.trim() !== ''); // Remove empty words
+                shuffleArray(words);
+
+                const textContentElement = document.getElementById('text-content');
+                const windowHeight = window.innerHeight;
+                const fontSize = 40; // Adjust the font size as needed
+                const lines = Math.ceil(windowHeight / fontSize);
+
+                const wordsPerLine = Math.ceil(words.length / lines);
+                for (let i = 0; i < lines; i++) {
+                    const lineWords = words.slice(i * wordsPerLine, (i + 1) * wordsPerLine);
+
+                    const lineParagraph = document.createElement('p');
+                    lineParagraph.classList.add('line-paragraph');
+                    textContentElement.appendChild(lineParagraph);
+
+					const specificWords = ['HTML', 'CSS', 'Cal', 'C', 'C++', 'Java', 'Python', 'Bash', 'SQL'];
+
+					lineWords.forEach(word => {
+					    const wordElement = document.createElement('span');
+					    if (specificWords.includes(word)) {
+					        wordElement.classList.add('color-word');
+					    }
+					    wordElement.textContent = word + ' ';
+					    lineParagraph.appendChild(wordElement);
+					});
+
+                    // Add a non-breaking space at the end of the line
+                    const spaceElement = document.createElement('span');
+                    spaceElement.textContent = '\u00A0';
+                    lineParagraph.appendChild(spaceElement);
+                }
+            })
+            .catch(error => {
+                console.error('Error loading the file:', error);
+            });
+
+        // Function to shuffle an array in-place
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+    </script>
+
+</body>
+</html>
