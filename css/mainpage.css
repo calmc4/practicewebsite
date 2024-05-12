@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, sans-serif;
+    color: white;
+	background-color: black;
+	min-height: 100vh;
+}
+
+head {
+	padding-bottom: 300px;
+}
+
+header {
+	padding-left: 250px;
+	padding-top: 250px;
+	align-items: center;
+	z-index: 3;
+	display: flex;
+}
+
+.info {
+	padding-left: 40%;	
+}
+
+.time {
+	padding-left: 38%;
+}
+
+.exact-time {
+	padding-left:46.5%;
+}
