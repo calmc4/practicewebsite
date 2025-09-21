@@ -1,49 +1,592 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Cal Mclean</title>
-    <link rel="stylesheet" href="css/mainpage.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Cal Mclean</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .header-section {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .time {
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
+
+    .exact-time {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(3, 200px);
+      gap: 15px;
+      width: 90%;
+      max-width: 1400px;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .box {
+      border: 2px solid white;
+      background: black;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .box-content {
+      text-align: center;
+      padding: 20px;
+      transition: opacity 0.3s ease;
+      z-index: 2;
+	  
+    }
+
+    .box h2 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    .box-expanded {
+      position: absolute;
+      inset: 0;
+      background: #111;
+      color: white;
+      padding: 20px;
+      opacity: 0;
+      transform: scale(0.9);
+      transition: all 0.3s ease;
+      overflow-y: auto;
+	  
+    }
+
+    .box.expanded .box-expanded {
+      opacity: 1;
+      transform: scale(1);
+    }
+	
+	.box.expanded .box-content {
+	  display: none;
+	}
+
+	/* Keep closed box title centered in normal state */
+	.box-content {
+	  text-align: center;
+	  font-size: 1.2rem;
+	  z-index: 2;
+	  pointer-events: none; /* clicks pass through */
+	}
+
+    .box.expanded {
+      grid-column: 1 / -1;
+      grid-row: 1 / -1;
+      z-index: 10;
+    }
+
+    .grid.expanded-mode .box:not(.expanded) {
+      display: none;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #fff;
+      background: #333;
+      border-radius: 50%;
+      padding: 5px 10px;
+    }
+
+    .box-expanded img {
+      max-width: 100%;
+      margin-top: 15px;
+      border-radius: 6px;
+    }
+	
+	.box-expanded {
+	  position: absolute;
+	  inset: 0;
+	  background: #111;
+	  color: white;
+	  padding: 20px;
+	  overflow-y: auto;
+	  display: flex;
+	  flex-direction: column;
+	}
+
+	.box-text {
+	  /* This keeps text at the top */
+	}
+
+	.image-row {
+	  display: flex;
+	  gap: 40px;
+	  justify-content: center;
+	  margin-top: 20px;
+	  flex-wrap: wrap;
+	}
+
+	.image-row img {
+	  flex: 1 1 auto;
+	  max-width: 250px;        /* Bigger images */
+	  height: auto;
+	  border-radius: 6px;
+	  transition: transform 0.3s ease;
+	}
+
+	/* Hover zoom effect */
+	.image-row img:hover {
+	  transform: scale(1.05);
+	}
+	
+	.img-overlay {
+	  display: none; /* Hidden by default */
+	  position: fixed;
+	  top: 0;
+	  left: 0;
+	  width: 100%;
+	  height: 100%;
+	  background-color: rgba(0,0,0,0.9);
+	  z-index: 9999;
+	  justify-content: center;
+	  align-items: center;
+	}
+
+	/* Image inside overlay */
+	.img-overlay img {
+	  max-width: 90%;
+	  max-height: 90%;
+	  box-shadow: 0 0 20px #fff;
+	  border-radius: 5px;
+	}
+
+	/* Close button */
+	.close-overlay {
+	  position: absolute;
+	  top: 20px;
+	  right: 30px;
+	  color: #fff;
+	  font-size: 40px;
+	  font-weight: bold;
+	  cursor: pointer;
+	}
+
+  </style>
 </head>
-<header>
-</header>
 <body>
-	<div class="time"></div>
+  <div class="header-section">
+    <div class="time"></div>
     <div class="exact-time"></div>
-	<div class="info">
-		<video width="320" height="240" autoplay loop muted>
-			<source src="GSAf.mp4" type="video/mp4">
-			Your browser does not support the video tag.
-		</video>
+    <div class="ball">
+      <video width="200" autoplay loop muted>
+        <source src="GSAf.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+
+  <div class="grid">
+	<div class="box">
+	  <div class="box-content"><h2>Memory Game</h2></div>
+		<div class="box-expanded">
+		  <span class="close-btn">&times;</span>	
+		  <div class="box-text">
+			<h3>Memory Game</h3>
+			<p>In 2021 - 2022 I created a memory game using Python and Pygame as part of my Advanced Higher Project. This involved the full development cycle through design, development, testing, and evaluation. The final documentation was over 200 pages and was well reviewed by the SQA.<br>
+			<br>The game featured a working main menu where you could customise your settings for accesibility and also features a leaderboard where players could compete and compare scores. The game followed a simple pattern of being shown various objects (power ups, grass or bombs) <br>
+			from there the user had to remember where everything was an click it and once the level was over a larger level was then generated and the cycle was repeated.<br>
+			score was calculated by time taken, how many squares were clicked and how many powerups were collected.
+			</p>
+		  </div>
+		  <div class="image-row">
+			<img src="images/memory game/game1.png" alt="Memory Game 1" class="popup-img">
+			<img src="images/memory game/game2.png" alt="Memory Game 2" class="popup-img" >
+			<img src="images/memory game/mainmenupic1.png" alt="Memory Game 3" class="popup-img">
+			<img src="images/memory game/settingsmenu.png" alt="Memory Game 4" class="popup-img">
+			
+			
+		  </div>
+		</div>
 	</div>
 
-    <div class="background-text" id="text-content"></div>
+	<div class="box">
+	  <div class="box-content"><h2>Java Card Game</h2></div>
+	  <div class="box-expanded">
+		<span class="close-btn">&times;</span>	
+		<div class="box-text" 
+			 style="padding:20px 30px;  /* top/bottom 20px, left/right 30px */
+					box-sizing:border-box;
+					font-size:1.1rem;
+					line-height:1.8;
+					text-align:justify;">
+		  <h3 style="margin-top:0;margin-bottom:15px;text-align:center;">Java Card Game</h3>
+		  <p style="margin:0;">
+			As part of my 2022 module "Software Development 1" I was tasked with creating a simple
+			card game which would allow the user to play a game and earn "money" this revolved around
+			creating an object of a class and adding additional features on top of that in a suitable
+			manner so that the player could replay games, check their balance and increase their bets.
+			<br><br><br>Sadly, I no longer have access to this code and as such can't display any photographs.
+		  </p>
+		</div>
+	  </div>
+	</div>
+	
+	<div class="box">
+	  <div class="box-content"><h2>File Analyser</h2></div>
+	  <div class="box-expanded">
+		<span class="close-btn">&times;</span>	
+		<div class="box-text" 
+			 style="padding:20px 30px;
+					box-sizing:border-box;
+					font-size:1.1rem;
+					line-height:1.8;
+					text-align:justify;">
+		  <h3 style="margin-top:0;margin-bottom:15px;text-align:center;">File Analyser</h3>
+		  <p style="margin:0;">
+			As part of my 2023 module "Programming Fundamentals" I was tasked with creating a C program that would take a file input and would return various information such as:
+			<ul>
+				<li>Total number of lines and characters in the file</li>
+				<li>Total number of comments (lines starting with //)</li>
+				<li>Total number of variables declared (outputted names of the variables to a .s file)</li>
+			</ul>
+			This project was a lot smaller than the other modules coursework and as such was only graded out of 24 and this coursework received 21, which awarded a merit.<br>
+		  </p>
+		</div>
+		<div class="image-row">
+			<img src="images/file analyser/additionalfunctions.png" alt="File Analyser 1" class="popup-img">
+			<img src="images/file analyser/commentsandmain.png" alt="File Analyser 2" class="popup-img">
+			<img src="images/file analyser/introtomain.png" alt="File Analyser 3" class="popup-img">
+			<img src="images/file analyser/supportfunctions.png" alt="File Analyser 4" class="popup-img">
+		</div>
+	  </div>
+	</div>
+		
+	<div class="box">
+	  <div class="box-content"><h2>Binary Search Tree</h2></div>
+	  <div class="box-expanded">
+		<span class="close-btn">&times;</span>	
+		<div class="box-text" 
+			 style="padding:20px 30px;
+					box-sizing:border-box;
+					font-size:1.1rem;
+					line-height:1.8;
+					text-align:justify;">
+		  <h3 style="margin-top:0;margin-bottom:15px;text-align:center;">Binary Search Tree</h3>
+		  <p style="margin:0;">
+			As part of my 2023 module "Programming Fundamentals" I was tasked with creating and implemtning a binary search tree algorithim in c++. As part of the implementation storage on the stack and heap had to be managed and discarded appropriately <br>
+			<br>The project was well reviewed and receieved 31/36 overall, which awarded a merit.
+			<br>Currently unable to run the source code to show the outputs so here are some lovely photos of the code.
+		  </p>
+		</div>
+		<div class="image-row">
+			<img src="images/binary search tree/constructor.png" alt="Binary Search Tree 1" class="popup-img">
+			<img src="images/binary search tree/documentationshowcase.png" alt="Binary Search Tree 2" class="popup-img">
+			<img src="images/binary search tree/inserthelper.png" alt="Binary Search Tree 3" class="popup-img">
+			<img src="images/binary search tree/morefunctions.png" alt="Binary Search Tree 4" class="popup-img">
+		</div>
+	  </div>
+	</div>
+		
+	<div class="box">
+	  <div class="box-content"><h2>Bash Docker Round-Robin</h2></div>
+	  <div class="box-expanded">
+		<span class="close-btn">&times;</span>	
+		<div class="box-text" 
+			 style="padding:20px 30px;
+					box-sizing:border-box;
+					font-size:1.1rem;
+					line-height:1.8;
+					text-align:justify;">
+		  <h3 style="margin-top:0;margin-bottom:15px;text-align:center;">Bash Docker Round-Robin</h3>
+		  <p style="margin:0;">
+			As part of my 2023 module "Operating Systems" I was required to create and implement a bash program which would sort through a series of text files in a round robin style (1 file from each folder, over and over until all files were processed)<br>
+			it would take the files from a series of 3 dockers to simulates "folders" and would assemble the text from each file into a main text file where it would read as a coherent story. <br>
+			The program offered additional functionality allowing the user to remove/add any text by searching through the file.
+			
+			<br>This coursework was incredibly well received and was awarded 100% as all functionality had been implemented well with the selection of bash/linux commands.
+			<br>Currently unable to run the source code to show the outputs so here are some lovely photos of the code.
+		  </p>
+		</div>
+		<div class="image-row">
+			<img src="images/roundrobin/elseif.png" alt="Binary Search Tree 1" class="popup-img">
+			<img src="images/roundrobin/intro.png" alt="Binary Search Tree 2" class="popup-img">
+			<img src="images/roundrobin/mainloop.png" alt="Binary Search Tree 3" class="popup-img">
+			<img src="images/roundrobin/noinputgiven.png" alt="Binary Search Tree 4" class="popup-img">
+		</div>
+	  </div>
+	</div>
+	
+	<div class="box">
+	  <div class="box-content"><h2>Pcap Analyser</h2></div>
+	  <div class="box-expanded">
+		<span class="close-btn">&times;</span>	
+		<div class="box-text" 
+			 style="padding:20px 30px;
+					box-sizing:border-box;
+					font-size:1.1rem;
+					line-height:1.8;
+					text-align:justify;">
+		  <h3 style="margin-top:0;margin-bottom:15px;text-align:center;">Pcap Analyser</h3>
+		  <p style="margin:0;">
+			As part of the module "Scripting for Cybersecurity and Networks" I was tasked with creating a program that would read in a .pcap file from wireshark and would analyse the entire file and give out
+			<ul>
+				<li>Number of Packets per Traffic Type (Timestamps, Mean Packet Length)</li>
+				<li>Emails, urls, filenames</li>
+				<li>Number of Packets Sent to and from Each address</li>
+				<li>Generated graphs on packets per minute and weighted network graph (matplotlib)</li>
+			</ul>
+			<br>This coursework was quite large and had to be created modularly which was a nice experience.
+			<br>There was a few issues with my coursework with some of the graphs and as such was only awarded 31/40 but the experience creating the coursework was great.
+		  </p>
+		</div>
+		<div class="image-row">
+			<img src="images/pcapanalyser/emails.png" alt="Pcap Analyer 1" class="popup-img">
+			<img src="images/pcapanalyser/graph1.png" alt="Pcap Analyer 2" class="popup-img">
+			<img src="images/pcapanalyser/graph2.png" alt="Pcap Analyer 3" class="popup-img">
+			<img src="images/pcapanalyser/ipsender.png" alt="Pcap Analyer 4" class="popup-img">
+			<img src="images/pcapanalyser/traffictypes.png" alt="Pcap Analyer 5" class="popup-img">
+			<img src="images/pcapanalyser/urlsandfiles.png" alt="Pcap Analyer 6" class="popup-img">
+		</div>
+	  </div>
+	</div>
+	
+	<div class="box">
+	  <div class="box-content"><h2>Card Counter</h2></div>
+	  <div class="box-expanded">
+		<span class="close-btn">&times;</span>	
+		<div class="box-text" 
+			 style="padding:20px 30px;
+					box-sizing:border-box;
+					font-size:1.1rem;
+					line-height:1.8;
+					text-align:justify;">
+		  <h3 style="margin-top:0;margin-bottom:15px;text-align:center;">Card Counter</h3>
+			<h3>Card Counter</h3>
+			<p>Card Counting is a way of playing blackjack in which you play blackjack in a way which will give you an advantage over the "house" and is often prohibbted<br>
+			<br>The game was created as the concept has always intrigued me and I wanted a way to figure it out while still having fun playing blackjack as most alternatives, only focus on guessing the count<br>
+			and not actually playing the game or increasing your "money".
+			</p>
+		  </div>
+		  <div class="image-row">
+			<img src="images/cardcounter/youlose.png" alt="Card Counter 1" class="popup-img">
+			<img src="images/cardcounter/countguess.png" alt="Card Counter 2" class="popup-img">
+		  </div>
+		</div>
+	</div>
+	
+	<div class="box">
+	  <div class="box-content"><h2>Amazon Job Poster</h2></div>
+	  <div class="box-expanded">
+		<span class="close-btn">&times;</span>	
+		<div class="box-text" 
+			 style="padding:20px 30px;
+					box-sizing:border-box;
+					font-size:1.1rem;
+					line-height:1.8;
+					text-align:justify;">
+		  <h3 style="margin-top:0;margin-bottom:15px;text-align:center;">Amazon Job Poster</h3>
+		  <p style="margin:0;">
+			<p>Amazon Warehouse posts jobs on the website jobsatamazon.co.uk and during my time of being an unemployed student I would often look their for any part-time or full-time jobs that would suit my schedule.<br>
+			These jobs would often come and go very quickly as they are often in high demand, the website offers a notification system for email or phone number to inform you when any jobs are posted, however, after being signed up<br>
+			for over 3 years I have received just a handfull of messages so clearly something isn't right. I created multiple versions orignally the program manually controlled your browser but this wasn't ideal if you wanted to use the computer <br>
+			at the same time so a couple months later I managed to make it use the same api that the website uses so it now functions in the command prompt just like you are opening the website but without having to actually do anything.
+			
+			<br>
+			This application has been incredibly useful for me and has informed me of countless jobs near me through email notifcation.
+			<br>
+			</p>
+		  </div>
+			<div class="image-row">
+			  <img src="images/amazonposter/example1.png" alt="Amazon Job Poster Example" class="popup-img">
+			</div>
+		</div>
 	</div>
 
-<script>
-// Function to update the breakdown of Unix epoch time every second
-function updateUnixTimeBreakdown() {
-    var currentTime = Math.floor(Date.now() / 1000); // Get current time in seconds
+	<div class="box">
+	  <div class="box-content"><h2>Battleships</h2></div>
+	  <div class="box-expanded">
+		<span class="close-btn">&times;</span>	
+		<div class="box-text" 
+			 style="padding:20px 30px;
+					box-sizing:border-box;
+					font-size:1.1rem;
+					line-height:1.8;
+					text-align:justify;">
+		  <h3 style="margin-top:0;margin-bottom:15px;text-align:center;">Battleships</h3>
+		  <p style="margin:0;">
+			<p>In 2024 as part of the module "Algorithms and Data Strucutres" I created the game battleships to be played in command prompt, the game was coded in python and allowed the user to place various difffernet types of ships and calculate if they could place them or not, then it let the user play against 3 different types of ai 
+				easy, medium or hard. Each AI used a different method for calculating attacks with easy just randomly selecting a square. Medium would randomly select until it hit 1 then it would hit squares near the first hit. Hard would use the same as medium but be on a larger board. 
+				<br><br>
+				The program was great fun to make and followed a simple main game loop for checking if all ships were destroyed.
+				<br>
+				<br>
+				The project was well reviewed and received a merit
+			</p>
+		  </div>
+		  <div class="image-row">
+			<img src="images/battleships/airepeatattack.png" alt="Battleships 1" class="popup-img">
+			<img src="images/battleships/attack.png" alt="Battleships 2" class="popup-img">
+			<img src="images/battleships/imissed.png" alt="Battleships 3" class="popup-img">
+			<img src="images/battleships/shipchoice.png" alt="Battleships 4" class="popup-img">
+		  </div>
+		</div>
+	</div>
+	
+	<div class="box">
+	  <div class="box-content"><h2>Web Browser Cleaner</h2></div>
+	  <div class="box-expanded">
+		<span class="close-btn">&times;</span>	
+		<div class="box-text" 
+			 style="padding:20px 30px;
+					box-sizing:border-box;
+					font-size:1.1rem;
+					line-height:1.8;
+					text-align:justify;">
+		  <h3 style="margin-top:0;margin-bottom:15px;text-align:center;">Web Browser Cleaner</h3>
+		  <p style="margin:0;">
+			<p>In 2025, with lots of concerns about privacy on the internet I decided to think about small changes that I could make and decided on a script where I could input a series of sites and the browser history would auto delete for example youtube. Why wouldn't I just wipe my history? Didn't want to have to keep logging in but if I log into a site then add the
+			website to the browser application it will wipe the browser history while still keeping me logged in. 
+			<br><br>
+			Currently published on the Chrome Web Store<br>
+			https://chromewebstore.google.com/detail/url-history-cleaner/mdgcjfinoaodgpnglpcejmafoblcemgk
+			</p>
+		  </div>
+		  <div class="image-row">
+			<img src="images/history cleaner/list.png" alt="History Cleaner 1" class="popup-img">
+			<img src="images/history cleaner/listsaved.png" alt="History Cleaner 2" class="popup-img">
+		  </div>
+		</div>
+	</div>
+	
+	<div class="box">
+	  <div class="box-content"><h2>Nested JSON to CSV</h2></div>
+	  <div class="box-expanded">
+		<span class="close-btn">&times;</span>	
+		<div class="box-text" 
+			 style="padding:20px 30px;
+					box-sizing:border-box;
+					font-size:1.1rem;
+					line-height:1.8;
+					text-align:justify;">
+		  <h3 style="margin-top:0;margin-bottom:15px;text-align:center;">Nested JSON to CSV</h3>
+		  <p style="margin:0;">
+			<p>During 2024 I came across a large dataset and wanted to try running it with a different application but the application would only allow the data to be loaded by <br>JSON or CSV, but the dataset was in nested JSON
+			and every internet alternative I could find at the time just altered the code in a way that was not correct and didn't output correctly so I decided to create my own. <br><br>The script is currently up on github!
+			<br>
+			https://github.com/calmc4/NestedJsonToCSV
+			</p>
+		  </div>
+		</div>
+	</div>
+	
+	<div class="box">
+	  <div class="box-content"><h2>VBSP.exe Expanded</h2></div>
+	  <div class="box-expanded">
+		<span class="close-btn">&times;</span>	
+		<div class="box-text" 
+			 style="padding:20px 30px;
+					box-sizing:border-box;
+					font-size:1.1rem;
+					line-height:1.8;
+					text-align:justify;">
+		  <h3 style="margin-top:0;margin-bottom:15px;text-align:center;">VBSP.exe Expanded</h3>
+		  <p style="margin:0;">
+			<p>The Source Game Engine utilises vbsp.exe to compile its maps however, the source engine has lots of different games all created at different points in time resulting in inconsistent <br>
+			vbsp.exe values for example a game might support 60000 brushes in a map and be able to run it fine and another source game might only support 5000 and as such vbsp.exe will only allow you to compile for 5000 despite the game limit being 60000.
+			<br>The only thing actually stopping vbsp.exe from running and compiling is just if statements in the code and all I did was use hxd and ghidra to look for lines related to brushes, vertexes and brushides and increase these limits <br>
+			Then it all just seemed to work, but it was great fun looking for the code and finding and translating the positioning to hxd so I could edit it.
+			
+			No pictures as there is no change to default vbsp.exe output
+			</p>
+		  </div>
+		</div>
+	</div>
+	<div id="img-overlay" class="img-overlay">
+	  <span class="close-overlay">&times;</span>
+	  <img class="overlay-img" id="overlay-img" src="">
+	</div>
+ </div>
 
-    // Calculate the breakdown
-    var seconds = currentTime % 60;
-    var minutes = Math.floor(currentTime / 60) % 60;
-    var hours = Math.floor(currentTime / 3600) % 24;
-    var days = Math.floor(currentTime / (3600 * 24)) % 365;
-    var years = Math.floor(currentTime / (3600 * 24 * 365));
+  <script>
+    function updateUnixTimeBreakdown() {
+      var currentTime = Math.floor(Date.now() / 1000);
 
-    // Update the time breakdown in the HTML
-    document.querySelector('.time').innerHTML = "Years: " + years + ", Days: " + days + ", Hours: " + hours + ", Minutes: " + minutes + ", Seconds: " + seconds;
+      var seconds = currentTime % 60;
+      var minutes = Math.floor(currentTime / 60) % 60;
+      var hours = Math.floor(currentTime / 3600) % 24;
+      var days = Math.floor(currentTime / (3600 * 24)) % 365;
+      var years = Math.floor(currentTime / (3600 * 24 * 365));
 
-    // Update the exact epoch time
-    document.querySelector('.exact-time').innerHTML = "(" + currentTime + ")";
-}
+      document.querySelector('.time').innerHTML =
+        "Years: " + years + ", Days: " + days + ", Hours: " + hours +
+        ", Minutes: " + minutes + ", Seconds: " + seconds;
 
-// Call the function initially to display the time breakdown
-updateUnixTimeBreakdown();
+      document.querySelector('.exact-time').innerHTML = "(" + currentTime + ")";
+    }
 
-// Update the time breakdown every second
-setInterval(updateUnixTimeBreakdown, 1000);
-</script>
+    updateUnixTimeBreakdown();
+    setInterval(updateUnixTimeBreakdown, 1000);
+	
+    const boxes = document.querySelectorAll('.box');
+    const grid = document.querySelector('.grid');
+
+    boxes.forEach(box => {
+      box.addEventListener('click', (e) => {
+        if (!box.classList.contains('expanded') && !e.target.classList.contains('close-btn')) {
+          grid.classList.add('expanded-mode');
+          box.classList.add('expanded');
+        }
+      });
+
+      box.querySelector('.close-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        box.classList.remove('expanded');
+        grid.classList.remove('expanded-mode');
+      });
+    });
+		
+	  const overlay = document.getElementById("img-overlay");
+	  const overlayImg = document.getElementById("overlay-img");
+	  const closeBtn = document.querySelector(".close-overlay");
+
+	  const images = document.querySelectorAll(".popup-img");
+
+	  images.forEach(img => {
+		img.addEventListener("click", () => {
+		  overlay.style.display = "flex";
+		  overlayImg.src = img.src;
+		});
+	  });
+
+	  closeBtn.addEventListener("click", () => {
+		overlay.style.display = "none";
+	  });
+
+	  overlay.addEventListener("click", e => {
+		if (e.target === overlay) overlay.style.display = "none";
+	  });
+  </script>
 </body>
 </html>
